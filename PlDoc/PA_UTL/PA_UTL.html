@@ -1,0 +1,593 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+ <HEAD>
+ <LINK REL="STYLESHEET" TYPE="text/css" HREF="plsqldoc.css">
+ <TITLE>Package PA_UTL</TITLE>
+ <META name="object" content="PACKAGE">
+ <META name="name" content="PA_UTL">
+ <META name="description" content="<b>File:</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PA_UTL.pck&nbsp; </BR>">
+</HEAD>
+<BODY>
+<TABLE WIDTH="100%"><TR>
+<TD><P ALIGN="LEFT"><STRONG><SMALL></SMALL></STRONG></TD>
+<TD><P ALIGN="RIGHT"><STRONG><SMALL><A HREF="index.html">index</A></SMALL></STRONG></TD>
+</TR></TABLE>
+<TABLE CLASS="MAIN_TABLE"><TR><TD CLASS="DESC_TEXT">
+<P CLASS="MAIN_TITLE">Package PA_UTL</P>
+<b>File:</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PA_UTL.pck&nbsp; </BR>
+<b>Author:</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="https://www.linkedin.com/in/federicolevis" target="_blank">Federico Levis</a>&nbsp; </BR>
+<b>Description:</b>&nbsp;&nbsp; PLSQL Utility Package :<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - LOG: <A HREF=#log>log</A>, <A HREF=#log_elapsed_sec>log_elapsed_sec</A>, <A HREF=#log_elapsed_msec>log_elapsed_msec</A> are used to <A HREF=#log>log</A> with various level (<A HREF=#LOG_LEV_ERR>LOG_LEV_ERR</A>,..,<A HREF=#LOG_LEV_TRACE>LOG_LEV_TRACE</A>) into Table <A HREF="UTL_LOG.html">UTL_LOG</A>&nbsp; </BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - OTHER Utility Function: <A HREF=#time_get_diff_sec>time_get_diff_sec</A>, <A HREF=#bool_to_varchar2>bool_to_varchar2</A>,...&nbsp; </BR>
+<b>REQUIRED:</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <A HREF="UTL_LOG.html">UTL_LOG</A>, <A HREF="UTL_CFG.html">UTL_CFG</A>, <A HREF="UTL_LOG_CFG.html">UTL_LOG_CFG</A>,&nbsp; SEQ_LOG_ID&nbsp; </BR>
+<b>Documentation:</b>&nbsp; <a href="https://github.com/JSUtility/PLSQLUtility/README.html" target="_blank">PA_UTL Documentation</a>&nbsp;&nbsp; </BR>
+<b>First Version:</b>&nbsp; ver 1.0 - Jan 2015&nbsp;&nbsp; </BR>
+<b>Current Version:</b>ver 2.0 - Jul 2016&nbsp; </BR>
+----------------------------------------------------------------------------------- </BR>
+<b>DISCLAIMER</b> </BR>
+Copyright by Federico Levis - <a href="https://github.com/JSUtility/PLSQLUtility" target="_blank">PL SQL Utilty</a>&nbsp; </BR>
+This file may be freely distributed under the MIT license.<br>
+
+<BR>
+</TD></TR></TABLE>
+<HR>
+<A NAME="Program units"></A>
+<TABLE CLASS="SUB_TABLE"><TR><TD CLASS="SUB_TITLE">
+Program units
+</TD></TR></TABLE>
+<TABLE CLASS="SUB_TABLE">
+<TR><TD VALIGN="TOP" CLASS="TYPE_ITEM">
+<A HREF="#log">log</A>&nbsp;&nbsp;
+</TD><TD CLASS="DESC_TEXT" WIDTH=95%>
+LOG a Message into UTL_LOG NOTES:
+</TD></TR>
+<TR><TD VALIGN="TOP" CLASS="TYPE_ITEM">
+<A HREF="#log_elapsed_msec">log_elapsed_msec</A>&nbsp;&nbsp;
+</TD><TD CLASS="DESC_TEXT" WIDTH=95%>
+LOG ElapsedTime with Msec precision
+</TD></TR>
+<TR><TD VALIGN="TOP" CLASS="TYPE_ITEM">
+<A HREF="#log_elapsed_sec">log_elapsed_sec</A>&nbsp;&nbsp;
+</TD><TD CLASS="DESC_TEXT" WIDTH=95%>
+LOG ElapsedTime with sec precision
+</TD></TR>
+<TR><TD VALIGN="TOP" CLASS="TYPE_ITEM">
+<A HREF="#log_get_id">log_get_id</A>&nbsp;&nbsp;
+</TD><TD CLASS="DESC_TEXT" WIDTH=95%>
+Get <A HREF="UTL_LOG.html">Log_id</A>&nbsp; to group together the <A HREF=#log>log</A> messages of the same CALL
+</TD></TR>
+<TR><TD VALIGN="TOP" CLASS="TYPE_ITEM">
+<A HREF="#dbms_out">dbms_out</A>&nbsp;&nbsp;
+</TD><TD CLASS="DESC_TEXT" WIDTH=95%>
+Call DBMS_OUTPUT.PUT_LINE (p_msg) adding before DateTime
+</TD></TR>
+<TR><TD VALIGN="TOP" CLASS="TYPE_ITEM">
+<A HREF="#time_get_diff_sec">time_get_diff_sec</A>&nbsp;&nbsp;
+</TD><TD CLASS="DESC_TEXT" WIDTH=95%>
+Get Time differences in second between 2 TIMESTAMP
+</TD></TR>
+<TR><TD VALIGN="TOP" CLASS="TYPE_ITEM">
+<A HREF="#bool_to_varchar2">bool_to_varchar2</A>&nbsp;&nbsp;
+</TD><TD CLASS="DESC_TEXT" WIDTH=95%>
+Convert BOOLEAN to VARCHAR2
+</TD></TR>
+<TR><TD VALIGN="TOP" CLASS="TYPE_ITEM">
+<A HREF="#sql_to_date">sql_to_date</A>&nbsp;&nbsp;
+</TD><TD CLASS="DESC_TEXT" WIDTH=95%>
+Prepare an SQL Stml for to_date
+</TD></TR>
+</TABLE>
+<BR>
+<A NAME="Constants"></A>
+<TABLE CLASS="SUB_TABLE"><TR><TD CLASS="SUB_TITLE">
+Constants
+</TD></TR></TABLE>
+<TABLE CLASS="SUB_TABLE">
+<TR><TD VALIGN="TOP" CLASS="TYPE_ITEM">
+<A HREF="#LOG_LEV_ERR">LOG_LEV_ERR</A>&nbsp;&nbsp;
+</TD><TD CLASS="DESC_TEXT" WIDTH=95%>
+LogLev for ERRORS
+</TD></TR>
+<TR><TD VALIGN="TOP" CLASS="TYPE_ITEM">
+<A HREF="#LOG_LEV_WARN">LOG_LEV_WARN</A>&nbsp;&nbsp;
+</TD><TD CLASS="DESC_TEXT" WIDTH=95%>
+LogLev for WARNING
+</TD></TR>
+<TR><TD VALIGN="TOP" CLASS="TYPE_ITEM">
+<A HREF="#LOG_LEV_INFO">LOG_LEV_INFO</A>&nbsp;&nbsp;
+</TD><TD CLASS="DESC_TEXT" WIDTH=95%>
+LogLev for INFO: important information
+</TD></TR>
+<TR><TD VALIGN="TOP" CLASS="TYPE_ITEM">
+<A HREF="#LOG_LEV_DEBUG">LOG_LEV_DEBUG</A>&nbsp;&nbsp;
+</TD><TD CLASS="DESC_TEXT" WIDTH=95%>
+LogLev for DEBUG
+</TD></TR>
+<TR><TD VALIGN="TOP" CLASS="TYPE_ITEM">
+<A HREF="#LOG_LEV_TRACE">LOG_LEV_TRACE</A>&nbsp;&nbsp;
+</TD><TD CLASS="DESC_TEXT" WIDTH=95%>
+LogLev for TRACE: Detailed <A HREF=#log>Log</A> used by developers
+</TD></TR>
+</TABLE>
+<BR>
+<HR>
+<A NAME="LOG_LEV_ERR"></A>
+<P CLASS="TYPE_TITLE">
+LOG_LEV_ERR
+</P>
+<PRE CLASS="DECL_TEXT">
+LOG_LEV_ERR CONSTANT NUMBER :=0;
+</PRE>
+<P CLASS="DESC_TEXT">
+LogLev for ERRORS<br>
+
+<BR>
+</P>
+<HR>
+<A NAME="LOG_LEV_WARN"></A>
+<P CLASS="TYPE_TITLE">
+LOG_LEV_WARN
+</P>
+<PRE CLASS="DECL_TEXT">
+LOG_LEV_WARN CONSTANT NUMBER :=1;
+</PRE>
+<P CLASS="DESC_TEXT">
+LogLev for WARNING<br>
+
+<BR>
+</P>
+<HR>
+<A NAME="LOG_LEV_INFO"></A>
+<P CLASS="TYPE_TITLE">
+LOG_LEV_INFO
+</P>
+<PRE CLASS="DECL_TEXT">
+LOG_LEV_INFO CONSTANT NUMBER :=2;
+</PRE>
+<P CLASS="DESC_TEXT">
+LogLev for INFO: important information<br>
+
+<BR>
+</P>
+<HR>
+<A NAME="LOG_LEV_DEBUG"></A>
+<P CLASS="TYPE_TITLE">
+LOG_LEV_DEBUG
+</P>
+<PRE CLASS="DECL_TEXT">
+LOG_LEV_DEBUG CONSTANT NUMBER :=3;
+</PRE>
+<P CLASS="DESC_TEXT">
+LogLev for DEBUG<br>
+
+<BR>
+</P>
+<HR>
+<A NAME="LOG_LEV_TRACE"></A>
+<P CLASS="TYPE_TITLE">
+LOG_LEV_TRACE
+</P>
+<PRE CLASS="DECL_TEXT">
+LOG_LEV_TRACE CONSTANT NUMBER :=4;
+</PRE>
+<P CLASS="DESC_TEXT">
+LogLev for TRACE: Detailed <A HREF=#log>Log</A> used by developers<br>
+
+<BR>
+</P>
+<HR>
+<A NAME="log"></A>
+<P CLASS="TYPE_TITLE">
+log
+</P>
+<PRE CLASS="DECL_TEXT">
+Procedure log(p_loglev  IN NUMBER,
+              p_feature IN VARCHAR2,
+              p_sp      IN VARCHAR2,
+              p_logmsg  IN VARCHAR2,
+              p_logId   IN NUMBER DEFAULT NULL,
+              p_dbmsOut IN BOOLEAN DEFAULT FALSE)
+
+</PRE>
+<P CLASS="DESC_TEXT">
+LOG a Message into UTL_LOG NOTES:<br>
+&nbsp;- log is done only if p_loglev is enabled in UTL_CFG for p_feature<br>
+&nbsp;- The Aging of UTL_CFG is automatically performed by this routine, calling locale procedure LOG_AGING that uses UTL_LOG_CFG configuration<br>
+
+<BR>
+</P>
+<A NAME="Parameters"></A>
+<TABLE CLASS="LIST_TABLE"><TR><TD CLASS="LIST_TITLE">
+Parameters
+</TD></TR></TABLE>
+<TABLE CLASS="LIST_TABLE">
+<TR><TD VALIGN="TOP" CLASS="LIST_ITEM" WIDTH=1%>
+</TD><TD VALIGN="TOP" CLASS="LIST_ITEM" WIDTH=1%>
+p_loglev&nbsp;&nbsp;
+</TD><TD CLASS="DESC_TEXT" WIDTH=95%>
+IN&nbsp; NUMBER&nbsp;&nbsp;&nbsp;&nbsp; LOG_LEV_xx: 0=LOG_LEV_ERR&nbsp; 1= LOG_LEV_WARN , .....<br>
+
+</TD></TR>
+<TR><TD VALIGN="TOP" CLASS="LIST_ITEM" WIDTH=1%>
+</TD><TD VALIGN="TOP" CLASS="LIST_ITEM" WIDTH=1%>
+p_feature&nbsp;&nbsp;
+</TD><TD CLASS="DESC_TEXT" WIDTH=95%>
+IN&nbsp; VARCHAR2&nbsp;&nbsp; Calling Feature<br>
+
+</TD></TR>
+<TR><TD VALIGN="TOP" CLASS="LIST_ITEM" WIDTH=1%>
+</TD><TD VALIGN="TOP" CLASS="LIST_ITEM" WIDTH=1%>
+p_sp&nbsp;&nbsp;
+</TD><TD CLASS="DESC_TEXT" WIDTH=95%>
+IN&nbsp; VARCHAR2&nbsp;&nbsp; Calling SP (SP of the Feature p_feature)<br>
+
+</TD></TR>
+<TR><TD VALIGN="TOP" CLASS="LIST_ITEM" WIDTH=1%>
+</TD><TD VALIGN="TOP" CLASS="LIST_ITEM" WIDTH=1%>
+p_logmsg&nbsp;&nbsp;
+</TD><TD CLASS="DESC_TEXT" WIDTH=95%>
+IN&nbsp; VARCHAR2&nbsp;&nbsp; Message to Log<br>
+
+</TD></TR>
+<TR><TD VALIGN="TOP" CLASS="LIST_ITEM" WIDTH=1%>
+</TD><TD VALIGN="TOP" CLASS="LIST_ITEM" WIDTH=1%>
+[p_logId]&nbsp;&nbsp;
+</TD><TD CLASS="DESC_TEXT" WIDTH=95%>
+IN&nbsp; VARCHAR2&nbsp;&nbsp; Optional ID used to group together the log messages of the same CALL<br>
+
+</TD></TR>
+<TR><TD VALIGN="TOP" CLASS="LIST_ITEM" WIDTH=1%>
+</TD><TD VALIGN="TOP" CLASS="LIST_ITEM" WIDTH=1%>
+[p_dbmsOut]&nbsp;&nbsp;
+</TD><TD CLASS="DESC_TEXT" WIDTH=95%>
+IN BOOLEAN&nbsp;&nbsp;&nbsp;&nbsp; default FALSE. TRUE to call also DMBS_OUTPUT.PUT_LINE - if set to TRUE you can set DBMS_OUTPUT.ENABLE (buffer_size =&gt; NULL)<br>
+
+</TD></TR>
+</TABLE>
+<BR>
+<HR>
+<A NAME="log_elapsed_msec"></A>
+<P CLASS="TYPE_TITLE">
+log_elapsed_msec
+</P>
+<PRE CLASS="DECL_TEXT">
+Procedure log_elapsed_msec(p_loglev    IN NUMBER,
+                           p_feature   IN VARCHAR2,
+                           p_sp        IN VARCHAR2,
+                           p_startTime IN TIMESTAMP,
+                           p_logmsg    IN VARCHAR2,
+                           p_logId     IN NUMBER DEFAULT NULL,
+                           p_dbmsOut   IN BOOLEAN DEFAULT FALSE)
+
+</PRE>
+<P CLASS="DESC_TEXT">
+LOG ElapsedTime with Msec precision<br>
+
+<BR>
+</P>
+<A NAME="Parameters"></A>
+<TABLE CLASS="LIST_TABLE"><TR><TD CLASS="LIST_TITLE">
+Parameters
+</TD></TR></TABLE>
+<TABLE CLASS="LIST_TABLE">
+<TR><TD VALIGN="TOP" CLASS="LIST_ITEM" WIDTH=1%>
+</TD><TD VALIGN="TOP" CLASS="LIST_ITEM" WIDTH=1%>
+p_loglev&nbsp;&nbsp;
+</TD><TD CLASS="DESC_TEXT" WIDTH=95%>
+IN&nbsp; NUMBER&nbsp;&nbsp;&nbsp;&nbsp; LOG_LEV_xx: 0=LOG_LEV_ERR&nbsp; 1= LOG_LEV_WARN , .....<br>
+
+</TD></TR>
+<TR><TD VALIGN="TOP" CLASS="LIST_ITEM" WIDTH=1%>
+</TD><TD VALIGN="TOP" CLASS="LIST_ITEM" WIDTH=1%>
+p_feature&nbsp;&nbsp;
+</TD><TD CLASS="DESC_TEXT" WIDTH=95%>
+IN&nbsp; VARCHAR2&nbsp;&nbsp; Calling Feature<br>
+
+</TD></TR>
+<TR><TD VALIGN="TOP" CLASS="LIST_ITEM" WIDTH=1%>
+</TD><TD VALIGN="TOP" CLASS="LIST_ITEM" WIDTH=1%>
+p_sp&nbsp;&nbsp;
+</TD><TD CLASS="DESC_TEXT" WIDTH=95%>
+IN&nbsp; VARCHAR2&nbsp;&nbsp; Calling SP (SP of the Feature p_feature)<br>
+
+</TD></TR>
+<TR><TD VALIGN="TOP" CLASS="LIST_ITEM" WIDTH=1%>
+</TD><TD VALIGN="TOP" CLASS="LIST_ITEM" WIDTH=1%>
+p_startTime&nbsp;&nbsp;
+</TD><TD CLASS="DESC_TEXT" WIDTH=95%>
+IN&nbsp; TIMESTAMP&nbsp;&nbsp; Start TIMESTAMP used to calculate ElapsedTime= SYSDATE - p_startTime<br>
+
+</TD></TR>
+<TR><TD VALIGN="TOP" CLASS="LIST_ITEM" WIDTH=1%>
+</TD><TD VALIGN="TOP" CLASS="LIST_ITEM" WIDTH=1%>
+p_logmsg&nbsp;&nbsp;
+</TD><TD CLASS="DESC_TEXT" WIDTH=95%>
+IN&nbsp; VARCHAR2&nbsp;&nbsp; Message to Log<br>
+
+</TD></TR>
+<TR><TD VALIGN="TOP" CLASS="LIST_ITEM" WIDTH=1%>
+</TD><TD VALIGN="TOP" CLASS="LIST_ITEM" WIDTH=1%>
+[p_logId]&nbsp;&nbsp;
+</TD><TD CLASS="DESC_TEXT" WIDTH=95%>
+IN&nbsp; VARCHAR2&nbsp;&nbsp; Optional ID used to group together the log messages of the same CALL<br>
+
+</TD></TR>
+<TR><TD VALIGN="TOP" CLASS="LIST_ITEM" WIDTH=1%>
+</TD><TD VALIGN="TOP" CLASS="LIST_ITEM" WIDTH=1%>
+[p_dbmsOut]&nbsp;&nbsp;
+</TD><TD CLASS="DESC_TEXT" WIDTH=95%>
+IN BOOLEAN&nbsp;&nbsp;&nbsp;&nbsp; default FALSE. TRUE to call also DMBS_OUTPUT.PUT_LINE - if set to TRUE you can set DBMS_OUTPUT.ENABLE (buffer_size =&gt; NULL)<br>
+
+</TD></TR>
+</TABLE>
+<BR>
+<HR>
+<A NAME="log_elapsed_sec"></A>
+<P CLASS="TYPE_TITLE">
+log_elapsed_sec
+</P>
+<PRE CLASS="DECL_TEXT">
+Procedure log_elapsed_sec(p_loglev    IN NUMBER,
+                          p_feature   IN VARCHAR2,
+                          p_sp        IN VARCHAR2,
+                          p_startDate IN DATE,
+                          p_logmsg    IN VARCHAR2,
+                          p_logId     IN NUMBER DEFAULT NULL,
+                          p_dbmsOut   IN BOOLEAN DEFAULT FALSE)
+
+</PRE>
+<P CLASS="DESC_TEXT">
+LOG ElapsedTime with sec precision<br>
+
+<BR>
+</P>
+<A NAME="Parameters"></A>
+<TABLE CLASS="LIST_TABLE"><TR><TD CLASS="LIST_TITLE">
+Parameters
+</TD></TR></TABLE>
+<TABLE CLASS="LIST_TABLE">
+<TR><TD VALIGN="TOP" CLASS="LIST_ITEM" WIDTH=1%>
+</TD><TD VALIGN="TOP" CLASS="LIST_ITEM" WIDTH=1%>
+p_loglev&nbsp;&nbsp;
+</TD><TD CLASS="DESC_TEXT" WIDTH=95%>
+IN&nbsp; NUMBER&nbsp;&nbsp;&nbsp;&nbsp; LOG_LEV_xx: 0=LOG_LEV_ERR&nbsp; 1= LOG_LEV_WARN , .....<br>
+
+</TD></TR>
+<TR><TD VALIGN="TOP" CLASS="LIST_ITEM" WIDTH=1%>
+</TD><TD VALIGN="TOP" CLASS="LIST_ITEM" WIDTH=1%>
+p_feature&nbsp;&nbsp;
+</TD><TD CLASS="DESC_TEXT" WIDTH=95%>
+IN&nbsp; VARCHAR2&nbsp;&nbsp; Calling Feature<br>
+
+</TD></TR>
+<TR><TD VALIGN="TOP" CLASS="LIST_ITEM" WIDTH=1%>
+</TD><TD VALIGN="TOP" CLASS="LIST_ITEM" WIDTH=1%>
+p_sp&nbsp;&nbsp;
+</TD><TD CLASS="DESC_TEXT" WIDTH=95%>
+IN&nbsp; VARCHAR2&nbsp;&nbsp; Calling SP (SP of the Feature p_feature)<br>
+
+</TD></TR>
+<TR><TD VALIGN="TOP" CLASS="LIST_ITEM" WIDTH=1%>
+</TD><TD VALIGN="TOP" CLASS="LIST_ITEM" WIDTH=1%>
+p_startDate&nbsp;&nbsp;
+</TD><TD CLASS="DESC_TEXT" WIDTH=95%>
+IN&nbsp; DATE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Start DATE used to calculate ElapsedTime= SYSDATE - p_startDate<br>
+
+</TD></TR>
+<TR><TD VALIGN="TOP" CLASS="LIST_ITEM" WIDTH=1%>
+</TD><TD VALIGN="TOP" CLASS="LIST_ITEM" WIDTH=1%>
+p_logmsg&nbsp;&nbsp;
+</TD><TD CLASS="DESC_TEXT" WIDTH=95%>
+IN&nbsp; VARCHAR2&nbsp;&nbsp; Message to Log<br>
+
+</TD></TR>
+<TR><TD VALIGN="TOP" CLASS="LIST_ITEM" WIDTH=1%>
+</TD><TD VALIGN="TOP" CLASS="LIST_ITEM" WIDTH=1%>
+[p_logId]&nbsp;&nbsp;
+</TD><TD CLASS="DESC_TEXT" WIDTH=95%>
+IN&nbsp; VARCHAR2&nbsp;&nbsp; Optional ID used to group together the log messages of the same CALL<br>
+
+</TD></TR>
+<TR><TD VALIGN="TOP" CLASS="LIST_ITEM" WIDTH=1%>
+</TD><TD VALIGN="TOP" CLASS="LIST_ITEM" WIDTH=1%>
+[p_dbmsOut]&nbsp;&nbsp;
+</TD><TD CLASS="DESC_TEXT" WIDTH=95%>
+IN BOOLEAN&nbsp;&nbsp;&nbsp;&nbsp; default FALSE. TRUE to call also DMBS_OUTPUT.PUT_LINE - if set to TRUE you can set DBMS_OUTPUT.ENABLE (buffer_size =&gt; NULL) Se si usa TRUE attenzione a chiamare prima (almeno 1 volta) DBMS_OUTPUT.ENABLE (buffer_size =&gt; NULL)<br>
+
+</TD></TR>
+</TABLE>
+<BR>
+<HR>
+<A NAME="log_get_id"></A>
+<P CLASS="TYPE_TITLE">
+log_get_id
+</P>
+<PRE CLASS="DECL_TEXT">
+Function log_get_id RETURN NUMBER
+
+</PRE>
+<P CLASS="DESC_TEXT">
+Get <A HREF="UTL_LOG.html">Log_id</A>&nbsp; to group together the <A HREF=#log>log</A> messages of the same CALL<br>
+
+<BR>
+</P>
+<A NAME="Returns"></A>
+<TABLE CLASS="LIST_TABLE"><TR><TD CLASS="LIST_TITLE">
+Returns
+</TD></TR></TABLE>
+<TABLE CLASS="LIST_TABLE">
+<TR><TD VALIGN="TOP" CLASS="LIST_ITEM" WIDTH=1%>
+</TD><TD CLASS="DESC_TEXT" WIDTH=95%>
+NUMBER&nbsp;&nbsp; <A HREF="UTL_LOG.html">log_id</A> get from SEQUENCE SEQ_LOG_ID<br>
+
+</TD></TR>
+</TABLE>
+<BR>
+<HR>
+<A NAME="dbms_out"></A>
+<P CLASS="TYPE_TITLE">
+dbms_out
+</P>
+<PRE CLASS="DECL_TEXT">
+Procedure dbms_out(p_msg IN VARCHAR2)
+
+</PRE>
+<P CLASS="DESC_TEXT">
+Call DBMS_OUTPUT.PUT_LINE (p_msg) adding before DateTime<br>
+
+<BR>
+</P>
+<A NAME="Parameters"></A>
+<TABLE CLASS="LIST_TABLE"><TR><TD CLASS="LIST_TITLE">
+Parameters
+</TD></TR></TABLE>
+<TABLE CLASS="LIST_TABLE">
+<TR><TD VALIGN="TOP" CLASS="LIST_ITEM" WIDTH=1%>
+</TD><TD VALIGN="TOP" CLASS="LIST_ITEM" WIDTH=1%>
+p_msg&nbsp;&nbsp;
+</TD><TD CLASS="DESC_TEXT" WIDTH=95%>
+IN VARCHAR2&nbsp;&nbsp; Message<br>
+
+</TD></TR>
+</TABLE>
+<BR>
+<HR>
+<A NAME="time_get_diff_sec"></A>
+<P CLASS="TYPE_TITLE">
+time_get_diff_sec
+</P>
+<PRE CLASS="DECL_TEXT">
+Function time_get_diff_sec(time1 IN TIMESTAMP, time2 In TIMESTAMP)
+  RETURN NUMBER
+
+</PRE>
+<P CLASS="DESC_TEXT">
+Get Time differences in second between 2 TIMESTAMP<br>
+
+<BR>
+</P>
+<A NAME="Parameters"></A>
+<TABLE CLASS="LIST_TABLE"><TR><TD CLASS="LIST_TITLE">
+Parameters
+</TD></TR></TABLE>
+<TABLE CLASS="LIST_TABLE">
+<TR><TD VALIGN="TOP" CLASS="LIST_ITEM" WIDTH=1%>
+</TD><TD VALIGN="TOP" CLASS="LIST_ITEM" WIDTH=1%>
+time1&nbsp;&nbsp;
+</TD><TD CLASS="DESC_TEXT" WIDTH=95%>
+IN TIMESTAMP<br>
+
+</TD></TR>
+<TR><TD VALIGN="TOP" CLASS="LIST_ITEM" WIDTH=1%>
+</TD><TD VALIGN="TOP" CLASS="LIST_ITEM" WIDTH=1%>
+time2&nbsp;&nbsp;
+</TD><TD CLASS="DESC_TEXT" WIDTH=95%>
+IN TIMESTAMP<br>
+
+</TD></TR>
+</TABLE>
+<BR>
+<A NAME="Returns"></A>
+<TABLE CLASS="LIST_TABLE"><TR><TD CLASS="LIST_TITLE">
+Returns
+</TD></TR></TABLE>
+<TABLE CLASS="LIST_TABLE">
+<TR><TD VALIGN="TOP" CLASS="LIST_ITEM" WIDTH=1%>
+</TD><TD CLASS="DESC_TEXT" WIDTH=95%>
+(time1 - time2)<br>
+
+</TD></TR>
+</TABLE>
+<BR>
+<HR>
+<A NAME="bool_to_varchar2"></A>
+<P CLASS="TYPE_TITLE">
+bool_to_varchar2
+</P>
+<PRE CLASS="DECL_TEXT">
+Function bool_to_varchar2(p_bool IN BOOLEAN) RETURN VARCHAR2
+
+</PRE>
+<P CLASS="DESC_TEXT">
+Convert BOOLEAN to VARCHAR2<br>
+
+<BR>
+</P>
+<A NAME="Parameters"></A>
+<TABLE CLASS="LIST_TABLE"><TR><TD CLASS="LIST_TITLE">
+Parameters
+</TD></TR></TABLE>
+<TABLE CLASS="LIST_TABLE">
+<TR><TD VALIGN="TOP" CLASS="LIST_ITEM" WIDTH=1%>
+</TD><TD VALIGN="TOP" CLASS="LIST_ITEM" WIDTH=1%>
+p_bool&nbsp;&nbsp;
+</TD><TD CLASS="DESC_TEXT" WIDTH=95%>
+IN BOOLEAN<br>
+
+</TD></TR>
+</TABLE>
+<BR>
+<A NAME="Returns"></A>
+<TABLE CLASS="LIST_TABLE"><TR><TD CLASS="LIST_TITLE">
+Returns
+</TD></TR></TABLE>
+<TABLE CLASS="LIST_TABLE">
+<TR><TD VALIGN="TOP" CLASS="LIST_ITEM" WIDTH=1%>
+</TD><TD CLASS="DESC_TEXT" WIDTH=95%>
+VARCHAR2&nbsp;&nbsp; eg: 'TRUE' or 'FALSE'<br>
+
+</TD></TR>
+</TABLE>
+<BR>
+<HR>
+<A NAME="sql_to_date"></A>
+<P CLASS="TYPE_TITLE">
+sql_to_date
+</P>
+<PRE CLASS="DECL_TEXT">
+Function sql_to_date(p_v_date IN varchar2, p_v_fmt IN varchar2)
+  RETURN VARCHAR2
+
+</PRE>
+<P CLASS="DESC_TEXT">
+Prepare an SQL Stml for to_date<br>
+
+<BR>
+</P>
+<A NAME="Parameters"></A>
+<TABLE CLASS="LIST_TABLE"><TR><TD CLASS="LIST_TITLE">
+Parameters
+</TD></TR></TABLE>
+<TABLE CLASS="LIST_TABLE">
+<TR><TD VALIGN="TOP" CLASS="LIST_ITEM" WIDTH=1%>
+</TD><TD VALIGN="TOP" CLASS="LIST_ITEM" WIDTH=1%>
+p_v_date&nbsp;&nbsp;
+</TD><TD CLASS="DESC_TEXT" WIDTH=95%>
+IN varchar2&nbsp;&nbsp;&nbsp;&nbsp; e.g.: '2016-07-26 23:59:59'<br>
+
+</TD></TR>
+<TR><TD VALIGN="TOP" CLASS="LIST_ITEM" WIDTH=1%>
+</TD><TD VALIGN="TOP" CLASS="LIST_ITEM" WIDTH=1%>
+p_v_fmt&nbsp;&nbsp;
+</TD><TD CLASS="DESC_TEXT" WIDTH=95%>
+IN varchar2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; e.g.: 'YYYY-MM-DD HH24:MI:SS'<br>
+
+</TD></TR>
+</TABLE>
+<BR>
+<A NAME="Returns"></A>
+<TABLE CLASS="LIST_TABLE"><TR><TD CLASS="LIST_TITLE">
+Returns
+</TD></TR></TABLE>
+<TABLE CLASS="LIST_TABLE">
+<TR><TD VALIGN="TOP" CLASS="LIST_ITEM" WIDTH=1%>
+</TD><TD CLASS="DESC_TEXT" WIDTH=95%>
+VARCHAR2&nbsp; es&nbsp;&nbsp; to_date('2016-07-26 23:59:59','YYYY-MM-DD HH24:MI:SS')<br>
+
+</TD></TR>
+</TABLE>
+<BR>
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+</BODY>
+</HTML>
