@@ -17,6 +17,6 @@ PLSQL Utility Package :
 MIT
 
  
-   [about]: <https://raw.githubusercontent.com/FedericoLevis/images/master/PA_UTL/UTL_LOG.png>
+   [about]: <https://rawgit.com/FedericoLevis/images/master/PA_UTL/UTL_LOG.png>
    [Federico Levis]: <https://www.linkedin.com/in/federicolevis> 
-   [PA_UTL Documentation]: <https://rawgit.com/FedericoLevis/PLSqlUtility/master/PlDoc/PA_UTL/frame_index.html> 
+   [PA_UTL Documentation]: <https://rawgit.com/FedericoLevis/PLSqlUtility/master/PA_UTL/PlDoc/frame_index.html> 
