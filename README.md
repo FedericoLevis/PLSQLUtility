@@ -10,8 +10,11 @@ PLSQL Utility Package :
 ### Documentation
 [PA_UTL Documentation]
 
+### Installation
+***UNDER WORK***
+
 ### Version
-2.0
+2.0 Jul 2016
 
 ### License
 MIT
