@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+  <meta content="text/html; charset=utf-8" http-equiv="Content-Type" >
+  <title>Sample of Use of mail.css  (by F. Levis)</title>
+    <!-- This sample -->
+       
+  <link rel="stylesheet" href="./mail.css" type="text/css">
+
+ 
+  <body> 
+    <div class="mailContainer">
+      <div class="mailTblContainer">
+  
+        <table class="mailOk" BORDER="2" cellspacing="0" cellpadding="2" width="70">
+           <tr><td  class="mailOk"   style="text-align:center" colspan="2">EXAMPLE of TEST OK</td></tr>
+           <tr>
+             <td class="mailHea" width="20%">RISULTATO:</td>
+               <td>
+                 <label class="mailOk" >OK</label>
+               </td>
+            </tr>
+           <tr>
+             <td class="mailHea" width="20%">Description:</td>
+               <td>
+                 <label class="mail" >Example of description with newline: <BR/>This is the second line<BR/>This is the line3<BR/>This is the line4 very long to see what happend....if it automatically go to the new line or if it create any layout problem</label>
+               </td>
+            </tr>
+           <tr>
+             <td class="mailHea" width="20%">Periodo</td>
+               <td>
+                 <label class="mail" >[10:12:56 .. 10:58:12] <b>34 sec</b></label>
+               </td>
+            </tr>
+           <tr>
+             <td class="mailHea" width="20%">NOTES:</td>
+               <td>
+                 <label class="mailNote" >some POD were Missing</label>
+               </td>
+            </tr>
+        </table>
+      </div>  <!-- end mailTblContainer -->
+      
+	   <div style="width:100%;text-align:center;padding-bottom:20px">
+         <a class="mailShowHide" href="#divMailInfo">VISUALIZZA le Informazioni di Debug</a>
+	   </div>   
+       <div class="mailInfoContainer" id="divMailInfo" >
+         <a class="mailShowHide" href="#divMailInfoHidden">NASCONDI le Informazioni di Debug</a>  
+         <div class="mailShowHide" id="divMailInfoHidden"></div>
+	       <div class="mailContainer">
+	         <BR/><hr><BR/>
+ 		       <div class="mailInfoTitle">Informazioni di Debug</div>
+	         <div class="mailInfo1" style="height:500px">
+			       <div class="mailInfo2">
+This is an example of <b><i>DEBUG</i>Information:</b>
+				<table class="mailInfo" BORDER="1" cellspacing="0" cellpadding="2" width="100%">
+				   <tr class="mailInfoTitle " >
+					  <td width="50%">SP</td>
+					  <td width="15%">Start</td>
+					  <td width="15%">End</td>
+					  <td width="20%">Result</td>
+				   </tr>     
+				   <tr class="mailInfoAlt">
+					  <td>kpib_monitor_au 1</td>
+					  <td style="text-align:center">10:54:01</td>
+					  <td style="text-align:center">10:55:55</td>
+					  <td class="mailOk">OK</td>
+				   </tr>     
+				   <tr class="mailInfoAlt">
+					  <td>kpib_monitor_au 2</td>
+					  <td style="text-align:center">10:56:01</td>
+					  <td style="text-align:center">10:57:55</td>
+					  <td class="mailErr">ERROR</td>
+				   </tr>     
+				</table>
+ 
+             </div>
+           </div>  
+        </div>  <!-- end mailContainer -->
+      </div> <!-- end mailInfoContainer -->
+    </div> <!-- end mailContainer -->
+    
+  </body>
+</html>

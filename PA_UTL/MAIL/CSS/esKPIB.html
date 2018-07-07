@@ -1,0 +1,342 @@
+MAIL MESSAGE:
+Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed;boundary="DMW.Boundary.605592468"
+Mime-Version: 1.0
+--DMW.Boundary.605592468
+Content-Transfer-Encoding: binary
+Content-Type: text/html
+
+
+<html><head><meta http-equiv=Content-Type content=text/html; charset=windows-1252></head>
+  <style>
+/*
+Author: F. Levis
+Ultima Modifca:  17 Mag 2018 12:28
+Descrzione: CSS incluso degli HTML delle Mail, per poter usare una serie di STYLE Standard definiti qui
+*/
+
+/* separator */
+hr.mail {
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+
+/* Container of all the Other Div */
+div.mailContainer {
+    background-color: white;
+    width: 98%;
+	text-align: center;
+	margin-top: 10px;
+	margin-left: 10px;
+	margin-bottom: 10px;
+	margin-right: 10px;
+}
+
+
+/* container of the TBL */
+div.mailTblContainer {
+    width: 80%;
+	text-align: center;
+	display: inline-block;
+}
+
+
+table.mail, table.mailErr, table.mailWarn, table.mailOk {
+    width: 100%;
+	text-align: left;
+	font-family: Verdana;
+	font-weight: normal;
+	font-size: 13px;
+	color: black; 
+	background-color: white;
+	/* White Gray: default backgound, used for Td */
+	border: 3px solid ; 
+    border-collapse: separate;
+    border-spacing: 2px; 	
+}
+
+
+table.mail{   /* default */
+   border-color: #858585; /* Dark Gray */
+}
+table.mailErr{ /*Forr Error */
+   border-color: red; 
+}
+table.mailOk{ /* For OK*/
+   border-color: green; 
+}
+table.mailWarn{ /* For Warning*/
+   border-color: #ff8c00; 
+}
+
+
+/* ------------------------------------------------------------------- Used for TABLE Title and Column Header */
+
+tr.mailHea, td.mailHea, td.mail, td.mailRight, td.mailLeft, td.mailCenter, td.mailCenterBold, td.mailRightBold,   td.mailOk, td.mailGood, td.mailErr{
+	padding-left: 3px;
+	padding-right: 3px;
+	border: 1px solid #404040; /* Black */
+	text-align: center;
+}
+
+tr.mailErr, td.mailErr { /* Error with background colored (e.g TITLE) */
+  font-weight: bold;
+  background-color: red ;  
+  color: white;    
+}
+tr.mailOk, td.mailOk{ /* For OK*/
+  font-weight: bold;
+  background-color: green;  
+  color: white;    
+}
+tr.mailWarn, td.mailWarn{ /* For Warning*/
+  font-weight: bold;
+  background-color: #FF9933;  /* Orange */ 
+  color: white;    
+}
+tr.mailNote, td.mailNote{ /* For Note (status between good and warning)*/
+  background-color: #FFFF99;   /* yellow */ 
+  color: black;    
+}
+
+
+/* Header (grey Column) */
+tr.mailHea,td.mailHea {
+  font-weight: bold;
+  background-color: #E0E0E0;  /* light gray */  
+}	
+
+
+/* ------------------------------------------------------------------- Content of a cell */
+
+/* common */
+label.mailErr, label.mailOk, label.mailNote , label.mailWarn, label.mail{
+  font-weight: normal;
+  text-align: left;
+  /* padding: .5em; */
+  
+}	
+
+label.mailErr { /*only label in Error (e.g cell) */
+  color: red ;  
+  background-color: white;   
+}
+label.mailOk{ /* For OK*/
+  color: green ; 
+  background-color: white;   
+  font-weight: bold; 
+}
+label.mailNote{ /* For Note (status between good and warning)*/
+  background-color: #FFFFCC;   /* Light yellow */ 
+  color: black;    
+}
+td.mailWarn{ /* For Warning*/
+  background-color: #FFE5CC;   /* Light orange */ 
+  color: black;    
+}
+
+label.mail { /* default */
+  color: black;  
+  background-color: white;   
+}
+
+
+
+
+.mailCenter,.mailCenterBold {
+  text-align: center;
+}
+
+.mailBold,.mailCenterBold,.mailRightBold,.mailLeftBold{
+  font-weight: bold;
+}
+
+.mailRight,.mailRightBold,.mailRightBold{
+	text-align: right ;
+}
+
+
+.mailLeft,.mailLeftBold,.mailLeftBold {
+	text-align: left ;
+}
+
+/* To have tr with alternate backgrond */
+tr.mailAlt:nth-of-type(even) {
+   background-color:#FFFFFF;
+}
+tr.mailAlt:nth-of-type(odd) {
+   background-color:#F5F5F5;
+}
+
+
+/* --------------------------------------------------------------- INfo ---------------------------------------------------*/
+/* displayed after Tbl*/
+
+
+/* container of the div with Info, (displayed only when is a target. i.e after click to a link this is a refererence) */
+div.mailInfo {
+    width: 100%;
+	text-align: left !important;
+  text-align: left;
+  font-family: Verdana;
+  font-weight: normal;
+  font-size: 12px;
+  color: black; 
+	padding-top: 10px;
+}
+
+div.mailInfoTitle {
+    background-color:  white;    
+	color: black;
+    width: 100%;
+    height: 18px;
+	text-align: center;
+	font-weight: bold;
+	font-size: 20px;
+    border: 0px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+
+table.mailInfo {
+  text-align: left;
+  font-family: Verdana;
+  font-weight: normal;
+  font-size: 11px;
+  color: black; 
+  background-color: #ffffff;
+  border: 1px solid black; 
+  border-spacing: 0px;
+  border-collapse: separate;
+}
+
+tr.mailInfoTitle,th.mailInfoTitle, td.mailInfoTitle { 
+  background-color: #696969; 
+  border: 1px solid black; 
+  color: white;
+  border-color: black;  
+  text-align: center;
+  font-family: Verdana;
+  font-weight: bold;
+  padding: 2px;
+}
+
+
+
+/* ----------------------------------------------------------------- ATTACHMENT ------- */
+
+/* container of the div with Attach, (displayed only when is a target. i.e after click to a link this is a refererence) */
+div.mailAttachContainer {
+    width: 100%;
+	text-align: left;
+}
+
+
+div.mailAttachTitle {
+    background-color:  #4169E1;  /* Royal Blue */  
+	color: white;
+    width: 100%;
+    height: 26px;
+	text-align: center;
+	font-weight: bold;
+	font-size: 20px;
+    border: 4px ridge #4169E1;
+}
+
+/* div  with scrollbar  */
+div.mailAttachScroll {
+	background-color: #FFFFDD;
+    width: 100%;
+    height: 250px;
+    border: 4px ridge #4169E1;
+	text-align: left;
+	font-family: Verdana;
+	font-weight: normal;
+	font-size: 12px;
+	color: black; 
+    overflow: scroll;
+}
+
+/* div container , to have margin */
+div.mailAttachMargin {
+	margin-left: 10px;	
+	
+}	
+
+
+table.mailAttach {
+  text-align: left;
+  font-family: Verdana;
+  font-weight: normal;
+  font-size: 11px;
+  color: black; 
+  background-color: #ffffff;
+  border: 1px solid black; 
+  border-spacing: 0px;
+  border-collapse: separate;
+}
+
+
+tr.mailAttachTitle,th.mailAttachTitle, td.mailAttachTitle { 
+  background-color: #696969; 
+  border: 1px solid black; 
+  color: white;
+  border-color: black;  
+  text-align: center;
+  font-family: Verdana;
+  font-weight: bold;
+  padding: 2px;
+}
+
+
+
+
+
+
+  </style>
+  <body> 
+    <div class="mailContainer">
+      <div class="mailTblContainer" style="width:80%">
+        <table class="mailErr" BORDER="2" cellspacing="0" cellpadding="2" width="100%">
+           <tr><td  class="mailErr"   style="text-align:center" colspan="2">ERRORE: kpib_processGlobal 20180422</td></tr>
+           <tr>
+             <td class="mailHea" width="20%">Risultato:</td>
+               <td>
+                 <label class="mailErr" ><b>ERRORE</b></label>
+               </td>
+            </tr>
+           <tr>
+             <td class="mailHea" width="20%">Durata:</td>
+               <td>
+                 <label class="mail" ><b>00:00:04</b>   [26-05-2018 20:13:38 .. 26-05-2018 20:13:43]</label>
+               </td>
+            </tr>
+           <tr>
+             <td class="mailHea" width="20%">Errore:</td>
+               <td>
+                 <label class="mailErr" >0 REC Inseriti in KPI_BEAT per KPI24<BR/>0 REC Inseriti in KPI_BEAT per KPI30<BR/>0 REC Inseriti in KPI_BEAT per KPI96<BR/>0 REC Inseriti in KPI_BEAT per GIORNO</label>
+               </td>
+            </tr>
+           <tr>
+             <td class="mailHea" width="20%">Allegati (1)</td>
+               <td>
+                 <label class="mailLeft" >Descrizione <b>FILE</b> Allegati:
+           <ul>
+
+
+               <li><b>20180422_result.html:</b> Dettaglio Elaborazione del 22-04-2018</li>
+</ul></label>
+               </td>
+            </tr>
+        </table>
+      </div>  <!-- end mailTblContainer -->
+      
+<div class=<table>
+        <tr><td> <hr class="mail"/></td></tr> 
+        <tr><td><div class="mailInfoTitle">STORE PROCEDURE kpib_processGlobal 20180422<BR/>STATISTICHE:</div></td></tr>
+        <tr><td><div class=" mailInfo"><procGlob_writeResult> OK in 00:00:00 ({GET SP status} in 00:00:00)</div></td></tr>
+      </table>
+    </div> <!-- end "mailContainer">  -->
+  </body>
+</html>
